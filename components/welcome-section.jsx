@@ -18,17 +18,7 @@ const industries = [
 ];
 
 export default function WelcomeSection() {
-  useEffect(() => {
-    const cards = document.querySelectorAll('[data-lordicon-target]');
-    cards.forEach(card => {
-      const icon = card.querySelector('lord-icon');
-      if (icon) {
-        card.addEventListener('mouseenter', () => {
-          icon.playerInstance?.playFromBeginning();
-        });
-      }
-    });
-  }, []);
+  // Removed manual event listeners to prevent conflict with lord-icon built-in triggers
 
   return (
     <section className="relative py-8 sm:py-10 md:py-12 px-3 sm:px-4 bg-[#ea6a61]/5 overflow-hidden">
@@ -53,60 +43,60 @@ export default function WelcomeSection() {
           {industries.map((industry, index) => (
             <div key={index} className="group relative text-center p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl bg-white/60 backdrop-blur-sm border border-white/40 hover:bg-white/90 hover:shadow-xl hover:border-[#ea6a61]/30 transition-all cursor-pointer" data-lordicon-target>
               <GlowingEffect proximity={100} spread={30} />
-              <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 transition-all">
+              <div 
+                className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 transition-all"
+                onMouseEnter={(e) => {
+                  const icon = e.currentTarget.querySelector('lord-icon');
+                  if (icon && icon.playerInstance) {
+                    icon.playerInstance.playFromBeginning();
+                  }
+                }}
+              >
                 {industry.icon === "lordicon-holding" ? (
                   <lord-icon
                     src="https://cdn.lordicon.com/lrzdmsmx.json"
-                    trigger="morph"
                     colors="primary:#ec736b"
                     style={{width: '80px', height: '80px'}}>
                   </lord-icon>
                 ) : industry.icon === "lordicon" ? (
                   <lord-icon
                     src="https://cdn.lordicon.com/asyunleq.json"
-                    trigger="morph"
                     colors="primary:#ec736b"
                     style={{width: '80px', height: '80px'}}>
                   </lord-icon>
                 ) : industry.icon === "lordicon-energy" ? (
                   <lord-icon
                     src="https://cdn.lordicon.com/apgkpdeb.json"
-                    trigger="morph"
                     colors="primary:#ec736b"
                     style={{width: '80px', height: '80px'}}>
                   </lord-icon>
                 ) : industry.icon === "lordicon-event" ? (
                   <lord-icon
                     src="https://cdn.lordicon.com/uoljexdg.json"
-                    trigger="morph"
                     colors="primary:#ec736b"
                     style={{width: '80px', height: '80px'}}>
                   </lord-icon>
                 ) : industry.icon === "lordicon-software" ? (
                   <lord-icon
                     src="https://cdn.lordicon.com/lrubprlz.json"
-                    trigger="morph"
                     colors="primary:#ec736b"
                     style={{width: '80px', height: '80px'}}>
                   </lord-icon>
                 ) : industry.icon === "lordicon-trading" ? (
                   <lord-icon
                     src="https://cdn.lordicon.com/excswhey.json"
-                    trigger="morph"
                     colors="primary:#ec736b"
                     style={{width: '80px', height: '80px'}}>
                   </lord-icon>
                 ) : industry.icon === "lordicon-media" ? (
                   <lord-icon
                     src="https://cdn.lordicon.com/zczzhvwa.json"
-                    trigger="morph"
                     colors="primary:#ec736b"
                     style={{width: '80px', height: '80px'}}>
                   </lord-icon>
                 ) : industry.icon === "lordicon-consulting" ? (
                   <lord-icon
                     src="https://cdn.lordicon.com/yraqammt.json"
-                    trigger="morph"
                     colors="primary:#ec736b"
                     style={{width: '80px', height: '80px'}}>
                   </lord-icon>

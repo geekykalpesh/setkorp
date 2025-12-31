@@ -14,17 +14,7 @@ import { motion } from "motion/react";
 export default function ContactForm() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
 
-  useEffect(() => {
-    const cards = document.querySelectorAll('[data-lordicon-target]');
-    cards.forEach(card => {
-      const icon = card.querySelector('lord-icon');
-      if (icon) {
-        card.addEventListener('mouseenter', () => {
-          icon.playerInstance?.playFromBeginning();
-        });
-      }
-    });
-  }, []);
+  // Removed manual event listeners to prevent conflict with lord-icon built-in triggers
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -123,10 +113,12 @@ export default function ContactForm() {
               <CardContent className="p-4">
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 flex items-center justify-center bg-[#ea6a61]/10 rounded-full">
+                    <div 
+                      className="w-8 h-8 flex items-center justify-center bg-[#ea6a61]/10 rounded-full"
+                      onMouseEnter={(e) => e.currentTarget.querySelector('lord-icon')?.playerInstance?.playFromBeginning()}
+                    >
                       <lord-icon
                         src="https://cdn.lordicon.com/wpsdctqb.json"
-                        trigger="hover"
                         colors="primary:#ee6d66"
                         style={{width: '18px', height: '18px'}}
                       ></lord-icon>
@@ -137,10 +129,12 @@ export default function ContactForm() {
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 flex items-center justify-center bg-[#ea6a61]/10 rounded-full">
+                    <div 
+                      className="w-8 h-8 flex items-center justify-center bg-[#ea6a61]/10 rounded-full"
+                      onMouseEnter={(e) => e.currentTarget.querySelector('lord-icon')?.playerInstance?.playFromBeginning()}
+                    >
                       <lord-icon
                         src="https://cdn.lordicon.com/wtywrnoz.json"
-                        trigger="hover"
                         colors="primary:#ee6d66"
                         style={{width: '18px', height: '18px'}}
                       ></lord-icon>
@@ -151,10 +145,12 @@ export default function ContactForm() {
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 flex items-center justify-center bg-[#ea6a61]/10 rounded-full">
+                    <div 
+                      className="w-8 h-8 flex items-center justify-center bg-[#ea6a61]/10 rounded-full"
+                      onMouseEnter={(e) => e.currentTarget.querySelector('lord-icon')?.playerInstance?.playFromBeginning()}
+                    >
                       <lord-icon
                         src="https://cdn.lordicon.com/oeotfwsx.json"
-                        trigger="hover"
                         colors="primary:#ee6d66"
                         style={{width: '18px', height: '18px'}}
                       ></lord-icon>

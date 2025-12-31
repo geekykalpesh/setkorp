@@ -94,14 +94,12 @@ export default function HeroSection() {
             {isPlaying ? (
               <lord-icon
                 src="https://cdn.lordicon.com/ilzotttq.json"
-                trigger="hover"
                 colors="primary:#ffffff"
                 style={{width: '20px', height: '20px'}}
               ></lord-icon>
             ) : (
               <lord-icon
                 src="https://cdn.lordicon.com/wjogzler.json"
-                trigger="hover"
                 colors="primary:#ffffff"
                 style={{width: '20px', height: '20px'}}
               ></lord-icon>

@@ -31,17 +31,7 @@ const setKorpFeatures = [
 ];
 
 export default function SetKorpShowcase() {
-  useEffect(() => {
-    const cards = document.querySelectorAll('.feature-card');
-    cards.forEach((card, index) => {
-      card.addEventListener('mouseenter', () => {
-        const lordicon = card.querySelector(`[data-lordicon-target="${index}"]`);
-        if (lordicon && lordicon.playerInstance) {
-          lordicon.playerInstance.playFromBeginning();
-        }
-      });
-    });
-  }, []);
+  // Removed manual event listeners to prevent conflict with lord-icon built-in triggers
 
   return (
     <section className="py-20 px-4 bg-white">
@@ -67,11 +57,18 @@ export default function SetKorpShowcase() {
             <div key={i} className="feature-card group relative bg-white/80 backdrop-blur-sm border-2 border-[#e85a4f]/20 hover:border-[#ea6a61] rounded-2xl p-8 hover:shadow-xl transition-all duration-300">
               <GlowingEffect proximity={120} spread={35} />
               <div className="flex items-start gap-6">
-                <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div 
+                  className="flex-shrink-0 w-16 h-16 flex items-center justify-center group-hover:scale-110 transition-transform"
+                  onMouseEnter={(e) => {
+                    const icon = e.currentTarget.querySelector('lord-icon');
+                    if (icon && icon.playerInstance) {
+                      icon.playerInstance.playFromBeginning();
+                    }
+                  }}
+                >
                   {lordicon ? (
                     <lord-icon
                       src={`https://cdn.lordicon.com/${lordicon}.json`}
-                      trigger="morph"
                       colors="primary:#ee6d66"
                       style={{width: '64px', height: '64px'}}
                       data-lordicon-target={i}>

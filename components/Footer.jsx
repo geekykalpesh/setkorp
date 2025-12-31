@@ -3,10 +3,8 @@ import { useRef } from "react";
 import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 
 export default function Footer() {
-  const socialIconRef = useRef(null);
-  const locationIconRef = useRef(null);
-  const phoneIconRef = useRef(null);
-  const emailIconRef = useRef(null);
+  // Icon refs removed
+
   return (
     <footer className="bg-[#2b2b2b]" style={{color: '#ffffff !important'}}>
       <div className="container mx-auto px-4 py-16 max-w-6xl">
@@ -20,13 +18,10 @@ export default function Footer() {
               <a 
                 href="#" 
                 className="w-10 h-10 rounded-full bg-[#f7f7f7]/10 flex items-center justify-center transition-colors"
-                onMouseEnter={() => socialIconRef.current?.playerInstance?.play()}
-                onMouseLeave={() => socialIconRef.current?.playerInstance?.stop()}
+                onMouseEnter={(e) => e.currentTarget.querySelector('lord-icon')?.playerInstance?.playFromBeginning()}
               >
                 <lord-icon
-                  ref={socialIconRef}
                   src="https://cdn.lordicon.com/hsabxdnr.json"
-                  trigger="none"
                   colors="primary:#ee6d66"
                   style={{width: '20px', height: '20px'}}>
                 </lord-icon>
@@ -63,13 +58,10 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-white">
               <li 
                 className="flex items-start gap-3"
-                onMouseEnter={() => locationIconRef.current?.playerInstance?.play()}
-                onMouseLeave={() => locationIconRef.current?.playerInstance?.stop()}
+                onMouseEnter={(e) => e.currentTarget.querySelector('lord-icon')?.playerInstance?.playFromBeginning()}
               >
                 <lord-icon
-                  ref={locationIconRef}
                   src="https://cdn.lordicon.com/oeotfwsx.json"
-                  trigger="none"
                   colors="primary:#ee6d66"
                   style={{width: '20px', height: '20px'}}
                   className="flex-shrink-0 mt-0.5">
@@ -78,13 +70,10 @@ export default function Footer() {
               </li>
               <li 
                 className="flex items-center gap-3"
-                onMouseEnter={() => phoneIconRef.current?.playerInstance?.play()}
-                onMouseLeave={() => phoneIconRef.current?.playerInstance?.stop()}
+                onMouseEnter={(e) => e.currentTarget.querySelector('lord-icon')?.playerInstance?.playFromBeginning()}
               >
                 <lord-icon
-                  ref={phoneIconRef}
                   src="https://cdn.lordicon.com/wtywrnoz.json"
-                  trigger="none"
                   colors="primary:#ee6d66"
                   style={{width: '20px', height: '20px'}}
                   className="flex-shrink-0">
@@ -93,13 +82,10 @@ export default function Footer() {
               </li>
               <li 
                 className="flex items-center gap-3"
-                onMouseEnter={() => emailIconRef.current?.playerInstance?.play()}
-                onMouseLeave={() => emailIconRef.current?.playerInstance?.stop()}
+                onMouseEnter={(e) => e.currentTarget.querySelector('lord-icon')?.playerInstance?.playFromBeginning()}
               >
                 <lord-icon
-                  ref={emailIconRef}
                   src="https://cdn.lordicon.com/wpsdctqb.json"
-                  trigger="none"
                   colors="primary:#ee6d66"
                   style={{width: '20px', height: '20px'}}
                   className="flex-shrink-0">

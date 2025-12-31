@@ -121,17 +121,7 @@ const Feature = ({
   const iconRefs = useRef([]);
 
   // Add useEffect for icon animations like welcome section
-  useEffect(() => {
-    const accordionItems = document.querySelectorAll("[data-lordicon-target]");
-    accordionItems.forEach((item) => {
-      const icon = item.querySelector("lord-icon");
-      if (icon) {
-        item.addEventListener("mouseenter", () => {
-          icon.playerInstance?.playFromBeginning();
-        });
-      }
-    });
-  }, []);
+    // Removed manual event listeners to prevent conflict with lord-icon built-in triggers
 
   const carouselRef = useRef(null);
   const ref = useRef(null);
@@ -378,14 +368,21 @@ const Feature = ({
                       }}
                     />
                   </div>
-                  <AccordionTrigger className="text-left flex items-center justify-between cursor-pointer">
+                  <AccordionTrigger 
+                    className="text-left flex items-center justify-between cursor-pointer"
+                    onMouseEnter={(e) => {
+                      const icon = e.currentTarget.querySelector('lord-icon');
+                      if (icon && icon.playerInstance) {
+                        icon.playerInstance.playFromBeginning();
+                      }
+                    }}
+                  >
                     <h3 className="font-bold text-lg tracking-tight">{item.title}</h3>
                     <lord-icon
                       ref={(el) => {
                         if (el) iconRefs.current[index] = el;
                       }}
                       src="https://cdn.lordicon.com/yhtmwrae.json"
-                      trigger="morph"
                       colors="primary:#ee6d66"
                       style={{ width: "24px", height: "24px" }}
                     ></lord-icon>
@@ -467,22 +464,28 @@ const Feature = ({
             }}
           >
             {featureItems.map((item, index) => (
-              <a
-                key={item.id}
-                className={cn(
-                  "card relative grid h-full max-w-64 shrink-0 items-start justify-center p-3 pb-0 border-2 rounded-2xl overflow-hidden transition-all duration-300 ease-out",
-                  "bg-gradient-to-br from-white to-gray-50/50",
-                  "shadow-sm hover:shadow-md hover:shadow-[#ea6a61]/5",
-                  "hover:scale-[1.02]",
-                  currentIndex === index
-                    ? "bg-gradient-to-br from-[#ea6a61]/5 to-[#e85a4f]/5 border-[#ea6a61]/60 shadow-lg shadow-[#ea6a61]/8 text-[#ea6a61] scale-[1.03]"
-                    : "border-[#ea6a61]/20 hover:border-[#ea6a61]/40 text-gray-700"
-                )}
-                onClick={() => setCurrentIndex(index)}
-                style={{
-                  scrollSnapAlign: "center",
-                }}
-              >
+                <a
+                  key={item.id}
+                  className={cn(
+                    "card relative grid h-full max-w-64 shrink-0 items-start justify-center p-3 pb-0 border-2 rounded-2xl overflow-hidden transition-all duration-300 ease-out",
+                    "bg-gradient-to-br from-white to-gray-50/50",
+                    "shadow-sm hover:shadow-md hover:shadow-[#ea6a61]/5",
+                    "hover:scale-[1.02]",
+                    currentIndex === index
+                      ? "bg-gradient-to-br from-[#ea6a61]/5 to-[#e85a4f]/5 border-[#ea6a61]/60 shadow-lg shadow-[#ea6a61]/8 text-[#ea6a61] scale-[1.03]"
+                      : "border-[#ea6a61]/20 hover:border-[#ea6a61]/40 text-gray-700"
+                  )}
+                  onClick={() => setCurrentIndex(index)}
+                  onMouseEnter={(e) => {
+                    const icon = e.currentTarget.querySelector('lord-icon');
+                    if (icon && icon.playerInstance) {
+                      icon.playerInstance.playFromBeginning();
+                    }
+                  }}
+                  style={{
+                    scrollSnapAlign: "center",
+                  }}
+                >
                 <div
                   className={cn(
                     "absolute overflow-hidden rounded-lg transition-opacity",
@@ -532,7 +535,6 @@ const Feature = ({
                     <h2 className="text-lg font-bold">{item.title}</h2>
                     <lord-icon
                       src="https://cdn.lordicon.com/yhtmwrae.json"
-                      trigger="hover"
                       colors="primary:#ee6d66"
                       style={{ width: "60px", height: "60px" }}
                     ></lord-icon>

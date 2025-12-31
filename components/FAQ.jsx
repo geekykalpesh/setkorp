@@ -32,17 +32,7 @@ const faqs = [
 ];
 
 export default function FAQ() {
-  useEffect(() => {
-    const cards = document.querySelectorAll('[data-lordicon-target]');
-    cards.forEach(card => {
-      const icon = card.querySelector('lord-icon');
-      if (icon) {
-        card.addEventListener('mouseenter', () => {
-          icon.playerInstance?.playFromBeginning();
-        });
-      }
-    });
-  }, []);
+  // Removed manual event listeners to prevent conflict with lord-icon built-in triggers
 
   return (
     <section className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 bg-[#ea6a61]/5">
@@ -59,11 +49,18 @@ export default function FAQ() {
         <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
           {faqs.map((faq, idx) => (
             <AccordionItem key={idx} value={`item-${idx}`} className="bg-white/80 backdrop-blur-sm border-2 border-[#e85a4f]/30 hover:border-[#e85a4f] hover:shadow-lg rounded-lg px-3 sm:px-4 md:px-6 transition-all" data-lordicon-target>
-              <AccordionTrigger className="text-left hover:no-underline text-sm sm:text-base md:text-lg font-semibold py-3 sm:py-4">
+              <AccordionTrigger 
+                className="text-left hover:no-underline text-sm sm:text-base md:text-lg font-semibold py-3 sm:py-4"
+                onMouseEnter={(e) => {
+                  const icon = e.currentTarget.querySelector('lord-icon');
+                  if (icon && icon.playerInstance) {
+                    icon.playerInstance.playFromBeginning();
+                  }
+                }}
+              >
                 <div className="flex items-center gap-2 sm:gap-3">
                   <lord-icon
                     src="https://cdn.lordicon.com/gqfozvrp.json"
-                    trigger="morph"
                     colors="primary:#ee6d66"
                     style={{width: '24px', height: '24px'}}
                     className="flex-shrink-0">
